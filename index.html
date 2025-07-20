@@ -1,0 +1,1214 @@
+
+  <!DOCTYPE html>
+  <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Storyboard du Module</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          min-height: 100vh;
+          padding: 2rem;
+          color: #1f2937;
+        }
+        
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20px;
+          padding: 3rem;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+          backdrop-filter: blur(10px);
+        }
+        
+        .header {
+          text-align: center;
+          margin-bottom: 3rem;
+          padding-bottom: 2rem;
+          border-bottom: 3px solid #e5e7eb;
+        }
+        
+        .header h1 {
+          font-size: 3rem;
+          font-weight: 700;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 1rem;
+        }
+        
+        .header p {
+          font-size: 1.1rem;
+          color: #6b7280;
+          font-weight: 400;
+        }
+        
+        .accordion-container {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .accordion-item {
+          background: #ffffff;
+          border: 2px solid #e5e7eb;
+          border-radius: 16px;
+          overflow: hidden;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion-item:hover {
+          border-color: #667eea;
+          box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
+        }
+        
+        .accordion-item.active {
+          border-color: #667eea;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion-header {
+          padding: 1.5rem 2rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+          transition: all 0.3s ease;
+          user-select: none;
+        }
+        
+        .accordion-header:hover {
+          background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+        }
+        
+        .accordion-title {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex: 1;
+        }
+        
+        .type-icon {
+          font-size: 1.5rem;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .title-content h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.25rem;
+        }
+        
+        .subtitle {
+          font-size: 0.9rem;
+          color: #6b7280;
+          font-weight: 400;
+        }
+        
+        .accordion-arrow {
+          transition: transform 0.3s ease;
+          color: #6b7280;
+        }
+        
+        .accordion-item.active .accordion-arrow {
+          transform: rotate(180deg);
+          color: #667eea;
+        }
+        
+        .accordion-content {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          background: #ffffff;
+        }
+        
+        .accordion-content.active {
+          max-height: 2000px;
+        }
+        
+        .content-wrapper {
+          padding: 2rem;
+          border-top: 1px solid #e5e7eb;
+          animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stats-bar {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          margin-bottom: 2rem;
+          padding: 1rem;
+          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+          border-radius: 12px;
+          border: 1px solid #e5e7eb;
+        }
+        
+        .stat-item {
+          text-align: center;
+        }
+        
+        .stat-number {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #667eea;
+          display: block;
+        }
+        
+        .stat-label {
+          font-size: 0.875rem;
+          color: #6b7280;
+          text-transform: uppercase;
+          font-weight: 500;
+          letter-spacing: 0.05em;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+          body {
+            padding: 1rem;
+          }
+          
+          .container {
+            padding: 1.5rem;
+          }
+          
+          .header h1 {
+            font-size: 2rem;
+          }
+          
+          .accordion-header {
+            padding: 1rem 1.5rem;
+          }
+          
+          .content-wrapper {
+            padding: 1.5rem;
+          }
+          
+          .stats-bar {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .type-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.25rem;
+          }
+        }
+        
+        /* Styles personnalisés pour les quiz */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-number {
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .quiz-title {
+            color: #2d3748;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-subtitle {
+            color: #718096;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .question-container {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .question-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+            font-size: 16px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(-10px);
+            opacity: 0;
+            animation: slideInOptions 0.5s forwards;
+        }
+
+        .option:nth-child(1) { animation-delay: 0.1s; }
+        .option:nth-child(2) { animation-delay: 0.2s; }
+        .option:nth-child(3) { animation-delay: 0.3s; }
+        .option:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInOptions {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            z-index: 1;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(5px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .option:hover::before {
+            width: 4px;
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .option-text {
+            font-size: 16px;
+            color: #2d3748;
+            position: relative;
+            z-index: 2;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #edf2f7;
+            transform: translateX(5px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .option.selected .option-letter {
+            background: #667eea;
+            animation: selectedPulse 0.5s ease;
+        }
+
+        @keyframes selectedPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .option.correct {
+            border-color: #48bb78;
+            background: #f0fff4;
+            animation: correctAnswer 0.6s ease;
+        }
+
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); background: #c6f6d5; }
+            100% { transform: scale(1); }
+        }
+
+        .option.correct .option-letter {
+            background: #48bb78;
+        }
+
+        .option.incorrect {
+            border-color: #f56565;
+            background: #fffaf0;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .option.incorrect .option-letter {
+            background: #f56565;
+        }
+
+        .correct-answer {
+            background: #f0fff4;
+            border: 2px solid #48bb78;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .correct-answer.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .correct-answer-icon {
+            color: #48bb78;
+            font-size: 20px;
+            margin-right: 10px;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .correct-answer-text {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+            box-shadow: 0 4px 15px rgba(226, 232, 240, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(226, 232, 240, 0.6);
+        }
+
+        .score-display {
+            text-align: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .score-display.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .score-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            animation: scoreReveal 1s ease;
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .feedback-message {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .feedback-message.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .feedback-excellent {
+            background: #f0fff4;
+            color: #2d5016;
+            border: 2px solid #48bb78;
+        }
+
+        .feedback-good {
+            background: #fffbeb;
+            color: #744210;
+            border: 2px solid #f6ad55;
+        }
+
+        .feedback-needs-improvement {
+            background: #fff5f5;
+            color: #742a2a;
+            border: 2px solid #f56565;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .quiz-title {
+                font-size: 24px;
+            }
+            
+            .question-text {
+                font-size: 18px;
+            }
+            
+            .quiz-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Storyboard du Module</h1>
+          <p>Explorez le contenu pédagogique de manière interactive</p>
+        </div>
+        
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-number">7</span>
+            <span class="stat-label">Écrans</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1</span>
+            <span class="stat-label">Quiz</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1</span>
+            <span class="stat-label">Vidéos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1</span>
+            <span class="stat-label">Images</span>
+          </div>
+        </div>
+        
+        <div class="accordion-container">
+          
+    <div class="accordion-item" data-section="section-01-Intro-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-01-Intro-01')">
+        <div class="accordion-title">
+          <span class="type-icon">📝</span>
+          <div class="title-content">
+            <h3>01-Intro-01 – Introduction à l'Entrepreneuriat en Afrique</h3>
+            <p class="subtitle">Un panorama des opportunités</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-01-Intro-01">
+        <div class="content-wrapper">
+          <div style="font-size:16px; line-height:1.8; color:#374151;">L'Afrique se présente aujourd’hui comme un terreau fertile pour l’entrepreneuriat. Dans ce contexte, comprendre les dynamiques spécifiques à ce continent est essentiel pour tirer parti des opportunités et relever les défis qui s’y rattachent. L’entrepreneuriat y joue un rôle crucial dans la stimulation de la croissance économique, la création d’emplois et la réduction des inégalités. Nous explorerons les principaux secteurs porteurs, les tendances émergentes ainsi que l’impact positif que peuvent avoir les initiatives entrepreneuriales sur le développement local. Cette introduction vous permettra de saisir les enjeux fondamentaux liés à l’entrepreneuriat africain et de vous préparer à approfondir les stratégies adaptées à ce contexte unique.</div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="accordion-item" data-section="section-02-Fond-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-02-Fond-01')">
+        <div class="accordion-title">
+          <span class="type-icon">📝</span>
+          <div class="title-content">
+            <h3>02-Fond-01 – Les caractéristiques de l'entrepreneur africain</h3>
+            <p class="subtitle">Profil et compétences nécessaires</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-02-Fond-01">
+        <div class="content-wrapper">
+          <div style="font-size:16px; line-height:1.8; color:#374151;">Dans cette étude de cas, vous explorerez les traits distinctifs qui façonnent un entrepreneur africain remarquable. Nous analyserons comment des compétences telles que l’adaptabilité face aux défis locaux, la résilience dans des environnements économiques instables, ainsi que la capacité d’innovation dans un contexte culturel riche, sont essentielles. Vous serez amené à identifier les éléments clés qui favorisent le succès entrepreneurial sur le continent, en prenant en compte les spécificités du marché africain. Cette réflexion analytique vous permettra de mieux comprendre comment ces compétences interagissent pour créer des opportunités durables et impactantes. Approfondir cette expertise vous ouvrira la voie à une maîtrise ciblée des profils entrepreneuriaux en Afrique moderne.</div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="accordion-item" data-section="section-03-Marché-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-03-Marché-01')">
+        <div class="accordion-title">
+          <span class="type-icon">🎥</span>
+          <div class="title-content">
+            <h3>03-Marché-01 – Comprendre le marché africain</h3>
+            <p class="subtitle">Contextes locaux et régionaux</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-03-Marché-01">
+        <div class="content-wrapper">
+          
+      <video controls style="max-width:100%; border-radius:10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <source src="https://raw.githubusercontent.com/najouaelfethi/storyboard1/main/video_n8n.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="accordion-item" data-section="section-04-Strategie-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-04-Strategie-01')">
+        <div class="accordion-title">
+          <span class="type-icon">📝</span>
+          <div class="title-content">
+            <h3>04-Strategie-01 – Élaboration d'un Business Model</h3>
+            <p class="subtitle">De l'idée à la réalité</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-04-Strategie-01">
+        <div class="content-wrapper">
+          <div style="font-size:16px; line-height:1.8; color:#374151;">Dans cet atelier, vous serez guidé étape par étape pour construire un business model efficace et adapté au contexte africain. Vous apprendrez à identifier les segments de clientèle spécifiques, définir une proposition de valeur pertinente, structurer les canaux de distribution appropriés et établir des sources de revenus durables. Nous vous inviterons à appliquer vos connaissances en analysant des exemples concrets et en développant votre propre modèle selon les réalités de votre marché. Ce travail pratique vous permettra de passer de l’idée initiale à un plan d’affaires cohérent et viable. Vous renforcerez ainsi votre capacité à concevoir une stratégie entrepreneuriale adaptée aux besoins locaux, un élément clé pour maximiser vos chances de réussite.</div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="accordion-item" data-section="section-05-Financement-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-05-Financement-01')">
+        <div class="accordion-title">
+          <span class="type-icon">📝</span>
+          <div class="title-content">
+            <h3>05-Financement-01 – Sources de financement</h3>
+            <p class="subtitle">Options pour les entrepreneurs</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-05-Financement-01">
+        <div class="content-wrapper">
+          <div style="font-size:16px; line-height:1.8; color:#374151;">Dans le contexte entrepreneurial africain, il est essentiel de maîtriser les différentes sources de financement afin de choisir les options les plus adaptées à chaque projet. Les entrepreneurs peuvent s’appuyer sur des financements traditionnels, tels que les prêts bancaires, mais également explorer des alternatives comme le microcrédit, le capital-risque, les subventions gouvernementales ou les fonds d’investissement dédiés au développement local. Chaque source présente ses avantages et ses contraintes en termes de conditions d’accès, de coût et d’accompagnement. Durant cette discussion, vous êtes invité à analyser ces différentes options, à partager vos expériences ou perceptions, et à réfléchir de manière critique sur les solutions les plus pertinentes pour stimuler la croissance de votre entreprise dans un environnement souvent marqué par des défis spécifiques liés au contexte africain.</div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="accordion-item" data-section="section-06-Evaluation-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-06-Evaluation-01')">
+        <div class="accordion-title">
+          <span class="type-icon">❓</span>
+          <div class="title-content">
+            <h3>06-Evaluation-01 – Quiz sur l'Entrepreneuriat en Afrique</h3>
+            <p class="subtitle">Testez vos connaissances</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-06-Evaluation-01">
+        <div class="content-wrapper">
+          <div style="display:flex; justify-content:center;">
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title">Quiz</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="quiz-content">
+            <!-- Question 1 -->
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-number">1</div>
+                    <div class="question-text">Quel est l’un des principaux défis auxquels font face les entrepreneurs en Afrique ?</div>
+                </div>
+                <div class="options-container">
+                    <div class="option" data-question="1" data-option="A">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">Une offre abondante de capitaux privés</div>
+                    </div>
+                    <div class="option" data-question="1" data-option="B">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">Un accès limité au financement bancaire traditionnel</div>
+                    </div>
+                    <div class="option" data-question="1" data-option="C">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">Une saturation du marché due à trop d’entreprises</div>
+                    </div>
+                    <div class="option" data-question="1" data-option="D">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">Une régulation faible qui facilite l’entreprise</div>
+                    </div>
+                </div>
+                <div class="correct-answer">
+                    <div class="correct-answer-icon">✅</div>
+                    <div class="correct-answer-text">Réponse correcte : B</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-number">2</div>
+                    <div class="question-text">Quelle opportunité spécifique favorise l’entrepreneuriat en Afrique ?</div>
+                </div>
+                <div class="options-container">
+                    <div class="option" data-question="2" data-option="A">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">La faible utilisation des technologies mobiles</div>
+                    </div>
+                    <div class="option" data-question="2" data-option="B">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">Le développement rapide des infrastructures routières</div>
+                    </div>
+                    <div class="option" data-question="2" data-option="C">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">La croissance démographique et la jeunesse de la population</div>
+                    </div>
+                    <div class="option" data-question="2" data-option="D">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">La baisse mondiale des prix des matières premières</div>
+                    </div>
+                </div>
+                <div class="correct-answer">
+                    <div class="correct-answer-icon">✅</div>
+                    <div class="correct-answer-text">Réponse correcte : C</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-number">3</div>
+                    <div class="question-text">Vrai ou Faux : Les jeunes entrepreneurs africains bénéficient rarement des réseaux de soutien locaux et internationaux.</div>
+                </div>
+                <div class="options-container">
+                    <div class="option" data-question="3" data-option="A">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">Vrai</div>
+                    </div>
+                    <div class="option" data-question="3" data-option="B">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">Faux</div>
+                    </div>
+                </div>
+                <div class="correct-answer">
+                    <div class="correct-answer-icon">✅</div>
+                    <div class="correct-answer-text">Réponse correcte : B</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-actions">
+            <button class="btn" id="submit-quiz">Valider les réponses</button>
+            <button class="btn btn-secondary" id="reset-quiz">Recommencer</button>
+        </div>
+
+        <div class="score-display" id="score-display">
+            <div class="score-text">Score: <span id="score">0</span>/3</div>
+        </div>
+
+        <div class="feedback-message" id="feedback-message"></div>
+    </div>
+
+    <script>
+        let userAnswers = {};
+        let correctAnswers = {
+            1: 'B',
+            2: 'C',
+            3: 'B'
+        };
+
+        // Initialize quiz
+        function initializeQuiz() {
+            hideAllCorrectAnswers();
+            updateProgressBar();
+        }
+
+        // Hide all correct answers initially
+        function hideAllCorrectAnswers() {
+            document.querySelectorAll('.correct-answer').forEach(answer => {
+                answer.classList.remove('show');
+                answer.style.display = 'none';
+            });
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const answeredQuestions = Object.keys(userAnswers).length;
+            const progress = (answeredQuestions / 3) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        // Handle option selection with enhanced effects
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.dataset.question;
+                const selectedOption = this.dataset.option;
+                
+                // Remove previous selection for this question
+                document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selection to clicked option with animation
+                this.classList.add('selected');
+                
+                // Store user answer
+                userAnswers[question] = selectedOption;
+                
+                // Update progress bar
+                updateProgressBar();
+                
+                // Add click feedback
+                this.style.transform = 'translateX(5px) scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateX(5px) scale(1.02)';
+                }, 100);
+            });
+
+            // Add hover sound effect simulation
+            option.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transition = 'all 0.2s ease';
+                }
+            });
+        });
+
+        // Submit quiz with enhanced animations
+        document.getElementById('submit-quiz').addEventListener('click', function() {
+            let score = 0;
+            
+            // Disable all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Check each question with staggered animations
+            for (let i = 1; i <= 3; i++) {
+                setTimeout(() => {
+                    const correctAnswer = correctAnswers[i];
+                    const userAnswer = userAnswers[i];
+                    
+                    // Show correct answer with animation
+                    const correctAnswerElement = document.querySelector(`.question-container:nth-child(${i}) .correct-answer`);
+                    correctAnswerElement.style.display = 'flex';
+                    setTimeout(() => {
+                        correctAnswerElement.classList.add('show');
+                    }, 50);
+                    
+                    // Mark options as correct or incorrect
+                    document.querySelectorAll(`[data-question="${i}"]`).forEach(option => {
+                        if (option.dataset.option === correctAnswer) {
+                            option.classList.add('correct');
+                        } else if (option.dataset.option === userAnswer && userAnswer !== correctAnswer) {
+                            option.classList.add('incorrect');
+                        }
+                    });
+                    
+                    // Calculate score
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                    }
+                    
+                    // Show final results after last question
+                    if (i === 3) {
+                        setTimeout(() => {
+                            showResults(score);
+                        }, 500);
+                    }
+                }, i * 300);
+            }
+            
+            // Disable submit button
+            this.disabled = true;
+            this.textContent = 'Terminé';
+        });
+
+        // Show results with feedback
+        function showResults(score) {
+            // Update and show score
+            document.getElementById('score').textContent = score;
+            document.getElementById('score-display').classList.add('show');
+            
+            // Show feedback message
+            const feedbackElement = document.getElementById('feedback-message');
+            let feedbackText = '';
+            let feedbackClass = '';
+            
+            if (score === 3) {
+                feedbackText = '🎉 Excellent! Vous avez tout bon!';
+                feedbackClass = 'feedback-excellent';
+            } else if (score === 2) {
+                feedbackText = '👍 Bien joué! Presque parfait!';
+                feedbackClass = 'feedback-good';
+            } else if (score === 1) {
+                feedbackText = '💪 Pas mal! Vous pouvez mieux faire!';
+                feedbackClass = 'feedback-needs-improvement';
+            } else {
+                feedbackText = '📚 Continuez à apprendre!';
+                feedbackClass = 'feedback-needs-improvement';
+            }
+            
+            feedbackElement.textContent = feedbackText;
+            feedbackElement.className = `feedback-message ${feedbackClass}`;
+            
+            setTimeout(() => {
+                feedbackElement.classList.add('show');
+            }, 500);
+        }
+
+        // Reset quiz with enhanced animations
+        document.getElementById('reset-quiz').addEventListener('click', function() {
+            // Reset user answers
+            userAnswers = {};
+            
+            // Re-enable all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.style.pointerEvents = 'auto';
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.transform = '';
+            });
+            
+            // Hide correct answers
+            document.querySelectorAll('.correct-answer').forEach(answer => {
+                answer.classList.remove('show');
+                setTimeout(() => {
+                    answer.style.display = 'none';
+                }, 300);
+            });
+            
+            // Hide score and feedback
+            document.getElementById('score-display').classList.remove('show');
+            document.getElementById('feedback-message').classList.remove('show');
+            
+            // Reset progress bar
+            updateProgressBar();
+            
+            // Enable submit button
+            const submitBtn = document.getElementById('submit-quiz');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Valider les réponses';
+            
+            // Add reset animation
+            document.querySelector('.quiz-container').style.animation = 'none';
+            setTimeout(() => {
+                document.querySelector('.quiz-container').style.animation = '';
+            }, 10);
+        });
+
+        // Initialize quiz on page load
+        window.addEventListener('load', initializeQuiz);
+    </script>
+</div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="accordion-item" data-section="section-07-Conclusion-01">
+      <div class="accordion-header" onclick="toggleAccordion('section-07-Conclusion-01')">
+        <div class="accordion-title">
+          <span class="type-icon">🖼️</span>
+          <div class="title-content">
+            <h3>07-Conclusion-01 – Conclusion et Perspectives</h3>
+            <p class="subtitle">L'avenir de l'entrepreneuriat en Afrique</p>
+          </div>
+        </div>
+        <div class="accordion-arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="accordion-content" id="section-07-Conclusion-01">
+        <div class="content-wrapper">
+          <div style="text-align:center;"><img src="https://api.valessonne.fr/public/images/kacRdVqaf2du1OO/original/schema-etapes-creation-entreprise-png" alt="Image écran" style="width:80%; max-width:600px; border-radius:10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" /></div>
+        </div>
+      </div>
+    </div>
+  
+        </div>
+      </div>
+      
+      <script>
+        // Fonction pour basculer l'accordéon
+        function toggleAccordion(sectionId) {
+          const item = document.querySelector('[data-section="' + sectionId + '"]');
+          const content = document.getElementById(sectionId);
+          const allItems = document.querySelectorAll('.accordion-item');
+          const allContents = document.querySelectorAll('.accordion-content');
+          
+          // Fermer tous les autres accordéons
+          allItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('active');
+            }
+          });
+          
+          allContents.forEach(otherContent => {
+            if (otherContent !== content) {
+              otherContent.classList.remove('active');
+            }
+          });
+          
+          // Basculer l'accordéon actuel
+          item.classList.toggle('active');
+          content.classList.toggle('active');
+        }
+        
+        // Ouvrir le premier accordéon par défaut
+        document.addEventListener('DOMContentLoaded', function() {
+          const firstItem = document.querySelector('.accordion-item');
+          const firstContent = document.querySelector('.accordion-content');
+          
+          if (firstItem && firstContent) {
+            firstItem.classList.add('active');
+            firstContent.classList.add('active');
+          }
+        });
+        
+        // Scripts des quiz
+        
+
+
+
+
+
+
+      </script>
+    </body>
+  </html>
